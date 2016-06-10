@@ -1,5 +1,5 @@
 {
-  "name": "node-authentication",
+  "name": "petbook",
   "main": "server.js",
   "scripts": {
     "start": "node ./server"
