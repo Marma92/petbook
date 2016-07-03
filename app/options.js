@@ -1,11 +1,10 @@
 module.exports = function(app){
 
   // =====================================
-  // HOME SECTION ========================
+  // OPTIONS SECTION =====================
   // =====================================
-
-  app.get('/home', function(req, res){
-  	res.render('home.js');
+  app.get('/options', function(req, res){
+  	res.render('options.js');
   });
 
 }
