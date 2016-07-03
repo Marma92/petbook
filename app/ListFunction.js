@@ -1,6 +1,6 @@
 
-var ListFunction = function() {};
-	
+var ListFunction = function(){};
+
 	// route middleware to make sure
 	ListFunction.prototype.isLoggedIn = function (req, res, next) {
 		console.log("test");
@@ -11,5 +11,5 @@ var ListFunction = function() {};
 		// if they aren't redirect them to the home page
 		res.redirect('/');
 	}
-	
+
 module.exports = new ListFunction();
