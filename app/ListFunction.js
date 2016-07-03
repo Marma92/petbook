@@ -1,8 +1,9 @@
-module.exports = function(app, passport){
+
+var ListFunction = function() {};
 	
 	// route middleware to make sure
-	function isLoggedIn(req, res, next) {
-
+	ListFunction.prototype.isLoggedIn = function (req, res, next) {
+		console.log("test");
 		// if user is authenticated in the session, carry on
 		if (req.isAuthenticated())
 			return next();
@@ -11,4 +12,4 @@ module.exports = function(app, passport){
 		res.redirect('/');
 	}
 	
-}
+module.exports = new ListFunction();
