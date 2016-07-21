@@ -33,6 +33,38 @@
 			</div>
 		</div>
 
+		</div>
+
+		<!-- PROFILE FORM -->
+        	<form action="/profile" method="post">
+        		<div class="form-group">
+        			<label>Nom</label>
+        			<input type="text" class="form-control" name="firstName">
+        		</div>
+        		<div class="form-group">
+        			<label>Prénom</label>
+        			<input type="text" class="form-control" name="name">
+        		</div>
+        		<div class="form-group">
+                    <label>Image</label>
+                    <input type="text" class="form-control" name="picUser">
+                </div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" class="form-control" name="name" min="18" max="99" step="10">
+                </div>
+                <div class="form-group">
+                    <label>Biographie</label>
+                    <input type="text" class="form-control" name="bio">
+                </div>
+                <div class="form-group">
+                    <label>Adresse mail</label>
+                    <input type="mail" class="form-control" name="mail">
+                </div>
+
+        		<button type="submit" class="btn btn-warning btn-lg">Mettre à jour le profil</button>
+        	</form>
+
 	</div>
 
 </div>

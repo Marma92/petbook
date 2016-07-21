@@ -84,6 +84,17 @@ schemaUser.statics.findByName = function(name, cb){
    return this.find({name : new RegExp(name, 'i')}, cb);
 };
 
+//Need a function to auto increment the id
+function getNextSequenceValue(sequenceName){
+   var sequenceId = db.schemaUser.findAndModify({
+      query:{_id: sequenceName },
+      update: {$inc:{sequence_value:1}},
+      new:true
+   });
+
+   return sequenceId.sequence_value;
+}
+
 //Test of creation to populate the database
 var user = new User({
    firstName : "Dorine",
@@ -101,8 +112,11 @@ user.save(function(err){
    console.log(user.name);
 });
 
+db.animal.insert({_id:"userId", sequence_value:0});
+
 //Test of creation to populate the database
 var animal = new Animal({
+   animalId: getNextSequenceValue("animalId"),
    name : "Potycha",
    race :  "Chat",
    sex : "Femelle",

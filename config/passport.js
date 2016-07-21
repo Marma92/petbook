@@ -10,6 +10,17 @@ var dbconfig = require('./database');
 var connection = mysql.createConnection(dbconfig.connection);
 
 connection.query('USE ' + dbconfig.database);
+
+var mongoose = require('mongoose');
+mongoose.connect("mongodb://localhost:27017/petbookDB");
+
+var db = mongoose.connection;
+
+db.on("error", console.error.bind(console, "connection error"));
+db.once("open", function(callback) {
+    console.log("Connection succeeded.");
+});
+
 // expose this function to our app using module.exports
 module.exports = function(passport) {
 
@@ -70,6 +81,13 @@ module.exports = function(passport) {
                     });
                 }
             });
+            var collection = db.get('Users');
+            collection.insert({
+                "userId" : this.userId,
+                "username" : this.usernameField
+
+            })
+
         })
     );
 

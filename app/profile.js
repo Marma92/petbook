@@ -10,5 +10,12 @@ module.exports = function(app, passport){
 			user : req.user // get the user out of session and pass to template
 		});
 	});
+
+	// process the profile form
+	app.post('/profile', passport.authenticate('local-update', {
+		successRedirect : '/profile', // redirect to the secure profile section
+		failureRedirect : '/profile', // redirect back to the signup page if there is an error
+		failureFlash : true // allow flash messages
+	}));
 	
 }
