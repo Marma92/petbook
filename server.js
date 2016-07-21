@@ -4,6 +4,7 @@
 // get all the tools we need
 var express  = require('express');
 var session  = require('express-session');
+var mongoose = require('mongoose');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
@@ -17,7 +18,7 @@ var flash    = require('connect-flash');
 // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
-
+require('./config/mongoose.js');
 
 
 // set up our express application

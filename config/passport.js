@@ -8,18 +8,10 @@ var mysql = require('mysql');
 var bcrypt = require('bcrypt-nodejs');
 var dbconfig = require('./database');
 var connection = mysql.createConnection(dbconfig.connection);
-
+var mongoose = require('mongoose');
+var User = require('../models/user')
 connection.query('USE ' + dbconfig.database);
 
-var mongoose = require('mongoose');
-mongoose.connect("mongodb://localhost:27017/petbookDB");
-
-var db = mongoose.connection;
-
-db.on("error", console.error.bind(console, "connection error"));
-db.once("open", function(callback) {
-    console.log("Connection succeeded.");
-});
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
@@ -57,6 +49,16 @@ module.exports = function(passport) {
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
         function(req, username, password, done) {
+
+            var newUser = new User({
+                username : username
+            });
+            newUser.save(function(err){
+                if (err){console.log(err);} else{ console.log('User saved successfully!');}
+                console.log("The new user is : " + newUser.username);
+            });
+
+
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
             connection.query("SELECT * FROM users WHERE username = ?",[username], function(err, rows) {
@@ -81,12 +83,6 @@ module.exports = function(passport) {
                     });
                 }
             });
-            var collection = db.get('Users');
-            collection.insert({
-                "userId" : this.userId,
-                "username" : this.usernameField
-
-            })
 
         })
     );
