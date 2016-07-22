@@ -1,11 +1,11 @@
 module.exports = function(app){
 
   // =====================================
-  // HOME SECTION ========================
+  // PET SECTION ========================
   // =====================================
 
-  app.get('/home', function(req, res){
-  	res.render('home.ejs');
+  app.get('/pet', function(req, res){
+  	res.render('pet.ejs');
   });
 
 }

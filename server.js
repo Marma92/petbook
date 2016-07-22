@@ -13,6 +13,14 @@ var port     = process.env.PORT || 8080;
 
 var passport = require('passport');
 var flash    = require('connect-flash');
+var router = express.Router();
+
+mongoose.connect("mongodb://localhost:27017/petbookDB");
+var User = require('./models/user')
+var Post = require("./models/post");
+var Animal = require("./models/animal");
+
+var ListFunction = require("./app/ListFunction");
 
 // configuration ===============================================================
 // connect to our database
@@ -41,9 +49,8 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
-
 // routes ======================================================================
-require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+require('./app/routes.js')(app, passport, ListFunction); // load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
 app.listen(port);

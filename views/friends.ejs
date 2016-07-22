@@ -1,0 +1,96 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<head>
+	<title>Node Authentication</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<style>
+		body 		{ word-wrap:break-word; }
+	</style>
+</head>
+<body>
+<div class="container">
+
+	<div class="page-header text-center">
+		<h1><span class="fa fa-group"></span> Leurs amis</h1>
+			<% include ./partials/menu %>
+	</div>
+
+<!-- AMIS ANIMAL -->
+    <div class="panel panel-success col-sm-12">
+    <div class="panel-heading"><h3>%Potycha%</h3>
+        <table class="table">
+        <thead>
+        <tr>
+            <th>Noms</th>
+            <th>Race</th>
+            <th>Page</a></th>
+            <th>Supprimer</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="success">
+            <td>John</td>
+            <td>Doe</td>
+            <td><a href="">ChatChérieu</a></td>
+            <td><button class="btn btn-danger btn-xs"Supprimer</td>
+        </tr>
+        <tr class="danger">
+            <td>Mary</td>
+            <td>Moe</td>
+            <td><a href="">ChavaBien</a></td>
+             <td><button class="btn btn-danger btn-xs"Supprimer</td>
+        </tr>
+        <tr class="info">
+            <td>July</td>
+            <td>Dooley</td>
+            <td><a href="">PotyCha</a></td>
+             <td><button class="btn btn-danger btn-xs"Supprimer</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+    </div>
+		
+        <div class="panel panel-success col-sm-12">
+    <div class="panel-heading"><h3>%Potychien%</h3>
+        <table class="table">
+        <thead>
+        <tr>
+            <th>Noms</th>
+            <th>Race</th>
+            <th>Page</a></th>
+            <th>Supprimer</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="success">
+            <td>John</td>
+            <td>Doe</td>
+            <td><a href="">ChienChérieu</a></td>
+             <td><button class="btn btn-danger btn-xs"Supprimer</td>
+        </tr>
+        <tr class="danger">
+            <td>Mary</td>
+            <td>Moe</td>
+            <td><a href="">ChienvaBien</a></td>
+             <td><button class="btn btn-danger btn-xs"Supprimer</td>
+        </tr>
+        <tr class="info">
+            <td>July</td>
+            <td>Dooley</td>
+            <td><a href="">PotyChien</a></td>
+             <td><button class="btn btn-danger btn-xs"Supprimer</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+<br>
+
+</div>
+
+	<% include ./partials/footer %>
+    
+</body>
+</html>

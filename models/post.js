@@ -3,12 +3,7 @@ var mongoose = require('mongoose')
     , Schema = mongoose.Schema,
     autoIncrement = require('mongoose-auto-increment')
 
-mongoose.connect("mongodb://localhost:27017/petbookDB");
 var db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error"));
-db.once("open", function(callback) {
-    console.log("Connection succeeded to MongoDB.");
-});
 autoIncrement.initialize(db);
 
 /**SCHEMA*/

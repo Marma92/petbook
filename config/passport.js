@@ -51,13 +51,15 @@ module.exports = function(passport) {
         function(req, username, password, done) {
 
             var newUser = new User({
-                username : username
+                userName : username
             });
             newUser.save(function(err){
-                if (err){console.log(err);} else{ console.log('User saved successfully!');}
-                console.log("The new user is : " + newUser.username);
+                if (err){console.log(err);
+                } else{
+                    console.log('User saved successfully!');
+                    console.log("The new user is : " + newUser.userName);
+                }
             });
-
 
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
@@ -83,7 +85,6 @@ module.exports = function(passport) {
                     });
                 }
             });
-
         })
     );
 
@@ -118,4 +119,30 @@ module.exports = function(passport) {
             });
         })
     );
+
+    // =========================================================================
+    // LOCAL LOGIN =============================================================
+    // =========================================================================
+
+    passport.use(
+        'local-update',
+        new LocalStrategy({
+            usernameField : 'username',
+            passwordField : 'password',
+            nameField : 'name',
+            passReqToCallback : true // allows us to pass back the entire request to the callback
+        },
+        function(req, username, name, password, done) {
+
+            var query = User.findOne({});
+            query.userName  = username;
+
+            query.save(function(err, user){
+                if(err) return console.log(err);
+                else console.log('%s is ', user.name);
+            })
+
+        })
+    );
+
 };

@@ -3,12 +3,8 @@ var mongoose = require('mongoose')
     , Schema = mongoose.Schema,
     autoIncrement = require('mongoose-auto-increment')
 
-mongoose.connect("mongodb://localhost:27017/petbookDB");
 var db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error"));
-db.once("open", function(callback) {
-    console.log("Connection succeeded to MongoDB.");
-});
+
 autoIncrement.initialize(db);
 
 /**SCHEMA*/
@@ -17,7 +13,7 @@ var schemaUser = new Schema ({
     userId : {type : Number, unique: true},
     firstName : String,
     name : String,
-    username : {type : String, unique: true},
+    userName : {type : String, unique: true},
     picture : String,
     age : Number,
     bio : String,
@@ -45,7 +41,7 @@ module.exports = User;
 
 /**METHOD*/
 schemaUser.statics.findByName = function(name, cb){
-    return this.find({username : new RegExp(name, 'i')}, cb);
+    return this.find({userName : new RegExp(name, 'i')}, cb);
 };
 
 /*

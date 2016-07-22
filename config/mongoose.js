@@ -1,105 +1,94 @@
-/*var express = require('express');
-var mongoose = require('mongoose')
-    , Schema = mongoose.Schema;
+var LocalStrategy   = require('passport-local').Strategy;
 
-mongoose.connect("mongodb://localhost:27017/petbookDB");
-var db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error"));
-db.once("open", function(callback) {
-       console.log("Connection succeeded to MongoDB.");
+// load up our models
+var mongoose = require('mongoose');
+var User = require('../models/user');
+var Animal = require('../models/animal');
+var Post = require('../models/post');
+
+
+// expose this function to our app using module.exports
+module.exports = function(queryMongoose) {
+
+    // =========================================================================
+    // passport session setup ==================================================
+    // =========================================================================
+    // required for persistent login sessions
+    // passport needs ability to serialize and unserialize users out of session
+
+    // used to serialize the user for the session
+    queryMongoose.serializeUser(function(user, done) {
+        done(null, user.name);
     });
 
-//Animal table
-var schemaAnimal = new Schema({
-   animalId : {type : Number, unique: true},
-   name : String,
-   race :  String,
-   sex : String,
-   picture : String,
-   age : {type: Number, min: 18, max: 50},
-   bio : String,
-   owner : {type : Number, unique: true},
-   meta : {
-       friendsName : [Number],
-       friendsCount : Number
-   }
-});
+    // =========================================================================
+    // LOCAL SIGNUP ============================================================
+    // =========================================================================
+    // we are using named strategies since we have one for login and one for signup
+    // by default, if there was no name, it would just be called 'local'
 
-//Post table
-var schemaPost = new Schema({
-   postId : {type : Number, unique: true},
-   title : String,
-   author : String,
-   content : String,
-   link : String,
-   publishedDate : { type: Date, default: Date.now },
-   comments : [{
-       content: String,
-       publishedDate: {type: Date, default: Date.now}
-   }],
-   meta : {
-       likes : Number,
-       shares : Number
-   },
-   hidden : Boolean
-});
+    queryMongoose.use(
+        'updateAccount',
+        new LocalStrategy({
+                // by default, local strategy uses username and password, we will override with email
+                usernameField : 'firstName',
+                passwordField : 'name',
+                picField : 'picUser',
+                ageFiel : 'age',
+                bioField : 'bio',
+                mailField : 'mail',
+                passReqToCallback : true // allows us to pass back the entire request to the callback
+            },
+            function(req, firstName, name, picUser, age, bio, mail, done) {
 
-//Post table
-var schemaComment = new Schema({
-   postId : {type : Number, unique: true},
-   title : String,
-   author : String,
-   content : String,
-   link : String,
-   publishedDate : { type: Date, default: Date.now },
-   comments : [{
-      content: String,
-      publishedDate: {type: Date, default: Date.now}
-   }],
-   meta : {
-      likes : Number,
-      shares : Number
-   },
-   hidden : Boolean
-});
+                users.findByName(user.name, function(err, users){
+                    if (err){
+                        return done(null, false, err);
+                        console.log("Erreur " + err);
+                    } else{
+                        console.log('User saved successfully!');
+                    }
+                    console.log("The user selected is : " + newUser.username);
+                    users.firstName = 'username'
 
-/**MODELS*//*
-var User = mongoose.model("User", schemaUser);
-var Animal = mongoose.model("Animal", schemaAnimal);
-var Post = mongoose.model("Post", schemaPost);
-var Comment = mongoose.model("Comment", schemaComment);
+                    users.save(function(err){
+                        return done(null, false, err);
+                        console.log("User updated");
+                    });
+                });
+                return done(null, user);
+            })
+    );
 
-schemaPost.set('autoIndex', false);
-schemaUser.set('autoIndex', false);
-schemaAnimal.set('autoIndex', false);
-schemaComment.set('autoIndex', false);
+    // =========================================================================
+    // LOCAL LOGIN =============================================================
+    // =========================================================================
+    // we are using named strategies since we have one for login and one for signup
+    // by default, if there was no name, it would just be called 'local'
 
-/**IMPORTS MODULES*//*
-module.exports = User;
-module.exports = Animal;
-module.exports = Post;
-module.exports = Comment;
+    queryMongoose.use(
+        'local-login',
+        new LocalStrategy({
+                // by default, local strategy uses username and password, we will override with email
+                usernameField : 'username',
+                passwordField : 'password',
+                passReqToCallback : true // allows us to pass back the entire request to the callback
+            },
+            function(req, username, password, done) { // callback with email and password from our form
+                connection.query("SELECT * FROM users WHERE username = ?",[username], function(err, rows){
+                    if (err)
+                        return done(err);
+                    if (!rows.length) {
+                        return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+                    }
 
-/**METHODS*/
-//Methods for User
-/* chemaUser.statics.findByName = function(name, cb){
-   return this.find({username : new RegExp(name, 'i')}, cb);
+                    // if the user is found but the password is wrong
+                    if (!bcrypt.compareSync(password, rows[0].password))
+                        return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+
+                    // all is well, return successful user
+                    return done(null, rows[0]);
+                });
+            })
+    );
 };
-
-//Test of creation to populate the database
-var tasty = new User({
-username: "test"
-});
-
-tasty.save(function(err){
-   console.log(tasty.username);
-});
-
-var nanimo = new Animal({
-   name: "patypotah"
-});
-
-nanimo.save(function(err){
-   console.log(nanimo.name);
-});
-*/

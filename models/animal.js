@@ -3,12 +3,8 @@ var mongoose = require('mongoose')
     , Schema = mongoose.Schema,
     autoIncrement = require('mongoose-auto-increment')
 
-mongoose.connect("mongodb://localhost:27017/petbookDB");
 var db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error"));
-db.once("open", function(callback) {
-    console.log("Connection succeeded to MongoDB.");
-});
+
 autoIncrement.initialize(db);
 
 /**SCHEMA*/
@@ -19,13 +15,14 @@ var schemaAnimal = new Schema({
     race :  String,
     sex : String,
     picture : String,
-    age : {type: Number, min: 18, max: 50},
+    age : {type: Number, min: 0, max: 50},
     bio : String,
-    owner : {type : Number, unique: true},
+    ownerUsername : String,
     meta : {
         friendsName : [Number],
         friendsCount : Number
-    }
+    }, 
+    seq : {type:Number, default:0}
 });
 
 /**MODEL*/
@@ -43,16 +40,35 @@ schemaAnimal.set('autoIndex', false);
 module.exports = Animal;
 
 /**METHODS*/
+
 schemaAnimal.statics.findByName = function(name, cb){
     return this.find({name : new RegExp(name, 'i')}, cb);
 };
 
-/*
- //Test of creation to populate the database
- var tasty = new User({
- username: "test"
+schemaAnimal.statics.findById = function(id, cb){
+    return this.find({id : new RegExp(name, 'i')}, cb);
+};
+
+schemaAnimal.statics.findOneAndUpdate = function(id, cb){
+    return this.find({id : new RegExp(name, 'i')}, cb);
+};
+
+ /*Test of creation to populate the database
+ var tasty = new Animal({
+         name : "PotyChien2",
+         race : "Chien",
+         sex : "Mâle",
+         picture : "url",
+         age : 15,
+         bio : "Test",
+         ownerUsername : "do",
+         meta : {
+             friendsName : [0],
+             friendsCount : 0
+         }
  });
 
  tasty.save(function(err){
- console.log(tasty.username);
+     if(err) console.log(err);
+     else console.log(tasty.name + " a bien été enregistré dans mongoose");
  });*/

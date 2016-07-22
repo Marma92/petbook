@@ -1,7 +1,8 @@
-module.exports = function(app, passport){
-	require("./home")(app, passport);
-    require("./login")(app, passport);
-	require("./signup")(app, passport);
-	require("./profile")(app, passport);
-	require("./logout")(app, passport);
+module.exports = function(app){
+	// =====================================
+	// HOME PAGE (with login links) ========
+	// =====================================
+	app.get('/', function(req, res) {
+		res.render('index.ejs'); // load the index.ejs file
+	});
 }

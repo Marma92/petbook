@@ -1,0 +1,65 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<head>
+	<title>Node Authentication</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<style>
+		body 		{ padding-top:80px; word-wrap:break-word; }
+	</style>
+</head>
+<body>
+<div class="container">
+
+<div class="page-header text-center">
+		<h1><span class="fa fa-paw"></span>Vos animaux</h1>
+			<% include ./partials/menu %>
+	</div>
+
+		<div class="row">
+
+		<!-- LOCAL INFORMATION -->
+			<div class="col-sm-12">
+				<div class="well">
+					<h3><span class="fa fa-paw"></span> Bienvenue au petit nouveau !</h3>
+
+				</div>
+		</div>
+
+		<!-- ANIMAL FORM -->
+        	<form action="/animal" method="post">
+        		<div class="form-group">
+        			<label>Nom</label>
+        			<input type="text" class="form-control" name="name" required>
+        		</div>
+        		<div class="form-group">
+        			<label>Race</label>
+        			<input type="text" class="form-control" name="race">
+        		</div>
+        		<div class="form-group">
+                    <label>Sexe</label>
+                    <input type="text" class="form-control" name="sex">
+                </div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" class="form-control" name="age" min="0" max="50" step="1">
+                </div>
+                <div class="form-group">
+                    <label>Photo</label>
+                    <input type="text" class="form-control" name="picture">
+                </div>
+                <div class="form-group">
+                    <label>Biographie</label>
+                    <input type="mail" class="form-control" name="bio">
+                </div>
+
+        		<button type="submit" class="btn btn-warning btn-lg">Ajouter</button>
+        	</form>
+
+	</div>
+
+</div>
+	<% include ./partials/footer %>
+</body>
+</html>
