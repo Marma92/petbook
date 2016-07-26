@@ -5,15 +5,13 @@
 	<title>Node Authentication</title>
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-	<style>
-		body 		{ padding-top:80px; word-wrap:break-word; }
-	</style>
+
 </head>
 <body>
 <div class="container">
 
 	<div class="page-header text-center">
-		<h1><span class="fa fa-anchor"></span> Home </h1>
+		<h1><span class="fa fa-home"></span> Home </h1>
 			<% include ./partials/menu %>
 	</div>
 
@@ -21,14 +19,95 @@
 
 		<!-- LOCAL INFORMATION -->
 		<div class="col-sm-6">
-			<div class="well">
-				<h3><span class="fa fa-user"></span> Local</h3>
-
-			</div>
+				<h3><span class="fa fa-paw"></span> La dure vie des animaux</h3>
 		</div>
 
 	</div>
 
+	<div class="col-sm-10 col-sm-offset-1">
+        <div class="row">
+        <textarea ng-model="newWaste"
+                  ng-keypress="sendWaste($event)"
+                  class="form-control"
+                  placeholder="Post Waste... then press enter">
+        
+        </textarea><br>
+		<div class="btn btn-info btn-xs">Donner des news</div>
+    </div>
+    
+    <div class="row">
+        <!--<table class="waste-section">
+        <tr > <a ng-if="incomingWastes.length > 0" ng-click="setNewWastes()">There are {{difference}} new wastes</a></tr>
+        <tr ng-repeat="waste in wastes">
+            <td>{{waste.user}}
+                <image ng-src="{{waste.userImage}}" class="img-responsive">
+            </td>    
+            
+            <td>
+                <strong>{{waste.date | date: 'MM/dd/yyyy hh:mm'}}</strong> <br>
+                <p>{{waste.content}}</p>
+                
+            </td>
+        </tr>
+        </table>-->
+    </div>
+
+    <!-- POST -->
+    <br>
+    <div class="row">
+        <div class="well">
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="http://placekitten.com/300/300">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">Chatrankil</h4>
+                <p class="text-right">By Potycha</p>
+                <p>Je kiffe ne pas faire de Javas !</p>
+                <ul class="list-inline list-unstyled">
+                    <li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
+                    <li>|</li>
+                    <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
+                    <li>|</li>
+                    <li>
+                    <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
+                    <span>504102 <i class="fa fa-heart"></i></span> &nbsp;
+                    <span>2 <i class="fa fa-share"></i></span>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- POST -->
+    <br>
+    <div class="row">
+        <div class="well">
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="https://s-media-cache-ak0.pinimg.com/236x/5a/a3/63/5aa36330079a901eba76179d13c45db8.jpg">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">Chaméchan</h4>
+                <p class="text-right">By Chapoté</p>
+                <p>Je déteste faire du java !</p>
+                <ul class="list-inline list-unstyled">
+                    <li><span><i class="glyphicon glyphicon-calendar"></i> 1 days, 2 hours </span></li>
+                    <li>|</li>
+                    <span><i class="glyphicon glyphicon-comment"></i> 5 comments</span>
+                    <li>|</li>
+                    <li>
+                    <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
+                    <span>1440 <i class="fa fa-heart"></i></span> &nbsp;
+                    <span>220 <i class="fa fa-share"></i></span>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 	<% include ./partials/footer %>
 </body>

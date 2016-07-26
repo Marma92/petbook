@@ -5,27 +5,43 @@
 	<title>Node Authentication</title>
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
-	<style>
-		body 		{ padding-top:80px; word-wrap:break-word; }
-	</style>
 </head>
 <body>
 <div class="container">
 
 	<div class="page-header text-center">
-		<h1><span class="fa fa-anchor"></span> Search </h1>
+		<h1><span class="fa fa-search"></span> Search </h1>
 			<% include ./partials/menu %>
 	</div>
 
 	<div class="row">
 
 		<!-- LOCAL INFORMATION -->
-		<div class="col-sm-6">
+		<div class="col-sm-12">
 			<div class="well">
-				<h3><span class="fa fa-user"></span> Local</h3>
+				<h3><span class="fa fa-paw"></span> Retrouver des amis d'amis d'animaux de compagnie des amis de vos animaux</h3>
 
 			</div>
 		</div>
+
+		<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+            <div class="input-group" id="adv-search">
+                <input class="form-control" type="text" list="search" name="search" AUTOCOMPLETE="OFF" placeholder="Search">
+                    <datalist id="search" name="search">';
+                        for($i = 0; $i<sizeof($listSearch); $i++){
+                		    echo '
+                			<option name="search" value="'.$listSearch[$i]->getName().'">'.$listSearch[$i]->getName().'</option>
+                			';
+                		}
+                		echo '
+                	</datalist>
+            </div>
+          </div>
+        </div>
+	</div>
+</div>
 
 	</div>
 

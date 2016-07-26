@@ -1,5 +1,3 @@
-
-
 module.exports = function(app){
 	// =====================================
 	// HOME PAGE (with login links) ========

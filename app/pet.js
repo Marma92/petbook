@@ -1,10 +1,11 @@
 module.exports = function(app){
 
   // =====================================
-  // OPTIONS SECTION =====================
+  // PET SECTION ========================
   // =====================================
-  app.get('/options', function(req, res){
-	   res.render('options.ejs');
+
+  app.get('/pet', function(req, res){
+  	res.render('pet.ejs');
   });
 
 }

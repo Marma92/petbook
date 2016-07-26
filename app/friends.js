@@ -1,10 +1,11 @@
 module.exports = function(app){
 
   // =====================================
-  // OPTIONS SECTION =====================
+  // HOME SECTION ========================
   // =====================================
-  app.get('/options', function(req, res){
-	   res.render('options.ejs');
+
+  app.get('/friends', function(req, res){
+  	res.render('friends.ejs');
   });
 
 }

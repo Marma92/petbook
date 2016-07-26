@@ -1,10 +1,18 @@
-module.exports = function(app, passport, ListFunction){
-	require("./index")(app, passport);
-  require("./login")(app, passport);
-	require("./signup")(app, passport);
-	require("./profile")(app, passport, ListFunction);
-	require("./search")(app, passport);
-	require("./options")(app, passport);
-	require("./home")(app, passport);
-	require("./logout")(app, passport);
+
+module.exports = function(app, models, passport){
+	
+	require("./index")(app);
+	require("./login")(app, passport);
+	require("./signup")(app, models);
+	require("./profile")(app, models);
+	require("./uploadPictureProfile")(app, models);
+	require("./search")(app);
+	require("./options")(app);
+	require("./home")(app);
+	require("./logout")(app);
+	require("./pet")(app);
+	require("./friends")(app);
+	require("./addPet")(app, models);
+
+
 }
