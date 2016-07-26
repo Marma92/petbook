@@ -44,7 +44,7 @@
         </div>
 
             <!-- PROFILE FORM -->
-                <form action="/profile" method="post">
+                <form action="/pet" method="post">
                     <div class="form-group">
                         <label>Nom</label>
                         <input type="text" class="form-control" name="name" value="<%= ListPets[i].name %>">
@@ -82,10 +82,14 @@
                         <label>Biographie</label>
 
                     </div>
-                    <button type="submit" class="btn btn-warning btn-sm">Modifier la photo</button>
-                    <button type="submit" class="btn btn-warning btn-sm">Mettre à jour ce profil</button><br><br>
-                    <button type="submit" class="btn btn-danger btn-sm"">Donner ce compte</button>
-                    <button type="submit" class="btn btn-danger btn-sm"">Supprimer ce profil</button>
+                    <input type = "hidden" value =" <%= ListPets[i].id %>" name = "id">
+                    <a href = "/pet/<%= ListPets[i].id %>/picture"><button type="button" class="btn btn-warning btn-sm">Modifier la photo</button></a>
+                    <input type="submit" class="btn btn-warning btn-sm" value = "Mettre à jour"><br><br>
+
+                </form>
+                <form action="/pet/delete" method="post">
+                    <input type = "hidden" value =" <%= ListPets[i].id %>" name = "id">
+                    <button type="submit" class="btn btn-danger btn-sm"">Supprimer mon animal</button>
                 </form>
     </div>
 </div>
