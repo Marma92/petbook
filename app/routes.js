@@ -1,6 +1,6 @@
 
 module.exports = function(app, models, passport){
-	
+
 	require("./index")(app);
 	require("./login")(app, passport);
 	require("./signup")(app, models);
@@ -8,7 +8,7 @@ module.exports = function(app, models, passport){
 	require("./uploadPictureProfile")(app, models);
 	require("./search")(app);
 	require("./options")(app);
-	require("./home")(app);
+	require("./home")(app, models);
 	require("./logout")(app);
 	require("./pet")(app);
 	require("./friends")(app);
