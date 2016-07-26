@@ -10,7 +10,7 @@ module.exports = function(app, models, passport){
 	require("./options")(app);
 	require("./home")(app, models);
 	require("./logout")(app);
-	require("./pet")(app);
+	require("./pet")(app, models);
 	require("./friends")(app);
 	require("./addPet")(app, models);
 
