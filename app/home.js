@@ -9,16 +9,17 @@ module.exports = function(app, models, passport){
 		if (req.isAuthenticated()){
 						var Pets = models.Pets;
 						var request = {
-							attributes: ['name'],
+							attributes: ['name','id'],
 							where:{
 								user_id : req.user.id
 							}
 						};
 						Pets.findAll(request).then(function(results){
-							console.log(results);
-						});
-            res.render('home.ejs',{
-							user: req.user
+								console.log(results);
+								res.render('home.ejs',{
+									user: req.user,
+									pets: results
+								});
 						});
 		}else{
 		    res.redirect('/')

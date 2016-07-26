@@ -7,9 +7,6 @@ module.exports = sequelize.import("posts", function(sequelize, Datatypes) {
             primaryKey: true,
             autoIncrement: true
         },
-        title: {
-            type: Datatypes.STRING
-        },
         content: {
             type: Datatypes.TEXT
         },
@@ -19,7 +16,6 @@ module.exports = sequelize.import("posts", function(sequelize, Datatypes) {
         nbLike: {
             type : Datatypes.BIGINT
         }
-
     },{
             paranoid: true,
             freezeTableName: true,
