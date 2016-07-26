@@ -27,11 +27,7 @@ module.exports = function(app, models){
 
 		}else{
 		    res.redirect('/')
-
 		}
-
-
-
     });
 
     app.post('/addPet', function(req, res) {
@@ -103,13 +99,21 @@ module.exports = function(app, models){
                             Pets.create({
                                 name : req.body.name,
                                 sex : req.body.sex,
-                                picture : dir + "/" + req.file.originalname,
+                                picture : req.user.username+"/"+req.body.name + "/" + req.file.originalname,
                                 age : req.body.age,
                                 bio : req.body.bio,
                                 race_id : req.body.race,
                                 user_id : results.id
                             });
                         });
+
+                        //deplacement du fichier dans celui de la bestiole
+                        var source = fs.createReadStream("photo_profil/"+req.user.username+"/"+req.file.originalname);
+                        var dest = fs.createWriteStream("photo_profil/"+req.user.username + "/" + req.body.name+"/"+req.file.originalname);
+                        source.pipe(dest);
+                        source.on('end', function() { /* copied */ });
+                        source.on('error', function(err) { /* error */ });
+
 
                         res.redirect("/pet");
 
