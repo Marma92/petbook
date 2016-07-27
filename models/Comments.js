@@ -11,23 +11,7 @@ module.exports = sequelize.import("comments", function(sequelize, Datatypes) {
             type: Datatypes.TEXT
         },
         publishedDate: {
-            type: Datatypes.Date
-        },
-        meta : {
-            likesCount : {
-                type : Datatypes.Number
-            }
-        }
-    }, {
-        classMethods : {
-            associate : function(models){
-                Pet.belongsTp(models.Post, {
-                    onDelete : "CASCADE",
-                    foreignKey : {
-                        allowNull : false
-                    }
-                });
-            }
+            type: Datatypes.DATE
         }
     }, {
             paranoid: true,

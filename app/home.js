@@ -1,12 +1,13 @@
-module.exports = function(app, models, passport){
+module.exports = function(app, models){
 
-  // =====================================
+    // =====================================
 	// HOME SECTION ========================
 	// =====================================
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
 	app.get('/home', function(req, res) {
-		if (req.isAuthenticated()){
+
+        if (req.isAuthenticated()){
 						var Pets = models.Pets;
 						var request = {
 							attributes: ['name','id'],
@@ -25,6 +26,7 @@ module.exports = function(app, models, passport){
 		    res.redirect('/')
 
 		}
+
 	});
 
 }

@@ -7,6 +7,7 @@ module.exports = function(app, models){
         content: req.body.content,
         publishedDate : Date.now(),
         nbLike : 0,
+        destinataire : req.body.pet,
         pet_id : req.body.pet
       }).then(function(){
         res.redirect('/home');

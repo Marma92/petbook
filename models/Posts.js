@@ -15,6 +15,9 @@ module.exports = sequelize.import("posts", function(sequelize, Datatypes) {
         },
         nbLike: {
             type : Datatypes.BIGINT
+        },
+        destinataire: {
+            type : Datatypes.BIGINT
         }
     },{
             paranoid: true,

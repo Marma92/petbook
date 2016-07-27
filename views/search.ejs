@@ -10,7 +10,7 @@
 <div class="container">
 
 	<div class="page-header text-center">
-		<h1><span class="fa fa-search"></span> Search </h1>
+		<h1><span class="fa fa-search"></span>Rechercher des amis !</h1>
 			<% include ./partials/menu %>
 	</div>
 
@@ -20,7 +20,7 @@
 		<div class="col-sm-12">
 			<div class="well">
 				<h3><span class="fa fa-paw"></span> Retrouver des amis d'amis d'animaux de compagnie des amis de vos animaux</h3>
-
+                <%= msgSearch %>
 			</div>
 		</div>
 
@@ -28,19 +28,77 @@
 	<div class="row">
 		<div class="col-md-12">
             <div class="input-group" id="adv-search">
-                <input class="form-control" type="text" list="search" name="search" AUTOCOMPLETE="OFF" placeholder="Search">
-                    <datalist id="search" name="search">';
-                        for($i = 0; $i<sizeof($listSearch); $i++){
-                		    echo '
-                			<option name="search" value="'.$listSearch[$i]->getName().'">'.$listSearch[$i]->getName().'</option>
-                			';
-                		}
-                		echo '
-                	</datalist>
+                <form method="POST"  action = "/search">
+                    <input class="form-control" type="text" placeholder="Recherche" name="search"/ >
+
+                    <input type = "submit" value ="Recherche" class="btn btn-warning ">
+                </form>
             </div>
           </div>
         </div>
 	</div>
+
+
+
+    	<% if (ListPets.length > 0) {
+            for(var j = 0; j<ListPets.length; j++){
+
+        %>
+    <div class="row">
+    	<div class="well">
+            <form method = "post" action = "/search/addFriend">
+            <input type ="hidden" name ="id" value = "<%= ListPets[j].id %>">
+                <table class="table table-striped">
+                    <tbody>
+                        <tr align="left">
+                            <td colspan="3"><img src="<%= ListPets[j].picture %>" class="img" width="304" height="236"></td>
+
+                        </tr>
+
+                        <tr>
+                            <td>Nom : <%= ListPets[j].name %></td>
+                            <td>Age :<%= ListPets[j].age%></td>
+                            <td>Race :
+
+                            <% for (var x = 0; x< ListRaces.length; x++){
+
+                                if (ListRaces[x].id == ListPets[j].race_id){
+
+                                %>
+                                    <%= ListRaces[x].name %>
+                                <%
+                                }
+                            }
+                            %>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >Demande d'ami en tant que :
+                                <select name="idMyPet" required>
+                                    <option></option>
+                                <% for (var i = 0; i < MyListPets.length; i++ ){ %>
+                                    <option value="<%= MyListPets[i].id %>"> <%= MyListPets[i].name %></option>
+                                <% } %>
+                                </select>
+                            </td>
+                            <td colspan="2">
+                                <input type="submit" value="Demander">
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </form>
+    	</div>
+    </div>
+
+
+    <%
+            }
+        }
+    %>
+
 </div>
 
 	</div>

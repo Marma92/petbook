@@ -8,7 +8,7 @@ module.exports = function(app, models){
     var msgError = "";
     var listRaces = "";
     var namePet ="";
-    var multer  =   require('multer');
+    var multer  = require('multer');
     var path = require('path');
     var crypto = require ("crypto");
     var fs = require("fs");
@@ -52,6 +52,81 @@ module.exports = function(app, models){
 		}
   });
 
+
+     //UPDATE GENERAL
+
+     	// process the profile form
+     	app.post('/pet', function(req, res, next) {
+     	    if (req.isAuthenticated()){
+     	        msgError="";
+
+                 if(!req.body.name){
+                     msgError = "Veuillez saisir son nom ! "
+                 }else if(!req.body.race){
+                      msgError = "Veuillez saisir sa race ! "
+                 }else if(!req.body.age){
+                      msgError = "Veuillez saisir votre age ! "
+                 }else if(!req.body.sex){
+                     msgError = "Veuillez saisir son sexe ! "
+                 }else if(!req.body.bio){
+                    msgError = "Veuillez saisir sa bio ! "
+                  }else{
+
+                   var Pets = models.Pets;
+                   Pets.update({
+                     name: req.body.name,
+                     sex: req.body.sex,
+                     age: req.body.age,
+                     bio: req.body.bio,
+                     race_id: req.body.race
+
+                   }, {
+                     where: {
+                       id: req.body.id
+                     }
+                   });
+
+
+                 }
+
+                 if (msgError ==""){
+                     res.redirect("/pet");
+                 }else{
+                     //load races list
+                                var Races = models.Races;
+                                var request = {
+                                    attributes: ['id', 'name'],
+                                    order: ['name']
+                                };
+
+
+
+                                Races.findAll(request).then(function(resultat){
+                                    listRaces=resultat;
+
+                                     var Pets = models.Pets;
+                                     var request2 = {
+                                        attributes: ['id', 'name', 'sex', 'picture', 'age', 'bio', 'race_id'],
+                                        order: ['name'],
+                                        where: {
+                                            user_id : req.user.id
+                                        }
+                                     };
+
+                                    Pets.findAll(request2).then(function(ListPets){
+                                        res.render('pet.ejs', {msgError : msgError, ListPets : ListPets, ListRaces : listRaces});
+                                    });
+
+
+                                });
+                 }
+
+     	    }else{
+                 res.redirect("/")
+     	    }
+
+
+     	});
 
 
     //UPDATE PICTURE/////////////////////////////////////////////////////////////////////////////////////////////
@@ -154,6 +229,40 @@ module.exports = function(app, models){
 
     	}
     });
+
+    ///////DELETE //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    app.post('/pet/delete', function(req, res) {
+
+        if (req.isAuthenticated()){
+
+
+            //Destroy COMMENTs
+            Comments = models.Comments
+            Pets = models.Pets;
+            Comments.destroy({ where: { pet_id: req.body.id } }).then(function(){
+                 //destoy POSTs
+                 Posts = models.Posts
+                 Posts.destroy({ where: { pet_id: req.body.id } }).then(function(){
+                    //destroy friends
+                    Friends = models.Friends;
+                    Friends.destroy({ where: { idFriends1: req.body.id } });
+                    Friends.destroy({ where: { idFriends2: req.body.id } });
+
+                 });
+            //destroy pet
+            }).then(Pets.destroy({ where: { id: req.body.id } }));
+
+
+            res.redirect('/pet')
+
+        }else{
+            res.redirect('/')
+
+        }
+    });
+
+
 
 
 

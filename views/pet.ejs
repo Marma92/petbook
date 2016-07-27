@@ -30,7 +30,7 @@
     for(var i = 0; i<ListPets.length; i++){
 %>
 <div class="panel panel-success col-sm-3 col-sm-offset-2">
-   <div class="panel-heading">
+     <div class="panel-heading">
 
             <table>
                 <tr>
@@ -38,7 +38,13 @@
                 </tr>
                 <tr>
                     <td> <%= ListPets[i].name %>   &nbsp;&nbsp;</td>
-                    <td><a href="/myPet/<%= ListPets[i].id %>"><button type="submit" class="btn btn-success btn-xs">Voir sa page</button></a></td>
+                    <td>
+                         <form action="/myPet" method="post">
+                            <input type="hidden" name ="id" value = "<%= ListPets[i].id %>">
+                            <input type="submit" class="btn btn-success btn-xs" value ="Voir sa page">
+                          </form>
+
+                    </td>
                 </tr>
             </table>
         </div>
@@ -71,8 +77,17 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Sexe</label>
-                        <input type="text" class="form-control" name="sex" value="<%= ListPets[i].sex %>">
+                        <label>Sexe</label><br>
+                        <SELECT name="sex">
+                        <option></option>
+                              <% if (ListPets[i].race_id=="Femelle") { %>
+                             <option name ="sex" selected = "selected" >Femelle</option>
+                             <option name ="sex">Male</option>
+                             <% }else{ %>
+                             <option name ="sex" >Femelle</option>
+                             <option name ="sex" selected = "selected">Male</option>
+                             <% } %>
+                        </SELECT>
                     </div>
                     <div class="form-group">
                         <label>Age</label>
@@ -80,7 +95,7 @@
                     </div>
                     <div class="form-group">
                         <label>Biographie</label>
-
+                        <textarea name = "bio"><%= ListPets[i].bio %></textarea>
                     </div>
                     <input type = "hidden" value =" <%= ListPets[i].id %>" name = "id">
                     <a href = "/pet/<%= ListPets[i].id %>/picture"><button type="button" class="btn btn-warning btn-sm">Modifier la photo</button></a>
@@ -89,17 +104,21 @@
                 </form>
                 <form action="/pet/delete" method="post">
                     <input type = "hidden" value =" <%= ListPets[i].id %>" name = "id">
+                    <input type = "hidden" value =" <%= ListPets[i].name %>" name = "name">
                     <button type="submit" class="btn btn-danger btn-sm"">Supprimer mon animal</button>
                 </form>
-    </div>
-</div>
+            </div>
+        </div>
+
+
 <%
         }
     }
 %>
-</div>
 
+</div>
+<br><br>
 	<% include ./partials/footer %>
-    
+
 </body>
 </html>

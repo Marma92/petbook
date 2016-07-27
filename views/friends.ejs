@@ -16,76 +16,72 @@
 		<h1><span class="fa fa-group"></span> Leurs amis</h1>
 			<% include ./partials/menu %>
 	</div>
+    <div>
+        <%= msg  %>
+    </div>
+
 
 <!-- AMIS ANIMAL -->
     <div class="panel panel-success col-sm-12">
-    <div class="panel-heading"><h3>%Potycha%</h3>
-        <table class="table">
-        <thead>
-        <tr>
-            <th>Noms</th>
-            <th>Race</th>
-            <th>Page</a></th>
-            <th>Supprimer</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="success">
-            <td>John</td>
-            <td>Doe</td>
-            <td><a href="">ChatChérieu</a></td>
-            <td><button class="btn btn-danger btn-xs"Supprimer</td>
-        </tr>
-        <tr class="danger">
-            <td>Mary</td>
-            <td>Moe</td>
-            <td><a href="">ChavaBien</a></td>
-             <td><button class="btn btn-danger btn-xs"Supprimer</td>
-        </tr>
+    <div class="panel-heading">
+    <%
+    if (tMyPets.length>0){
+        for(var i = 0 ; i<tMyPets.length; i++){
+
+     %>
+    <h3><%= tMyPets[i].name %></h3>
+    <table class="table">
+            <thead>
+            <tr>
+                <th>Noms</th>
+                <th>Race</th>
+                <th>Page</a></th>
+                <th>Supprimer</th>
+            </tr>
+            </thead>
+            <tbody>
+
+     <% if (tFriends[i].length>0){
+
+            for(var j = 0 ; j<tFriends[i].length; j++){
+			console.log("test :" +tFriends[i][j].type)
+        %>
         <tr class="info">
-            <td>July</td>
-            <td>Dooley</td>
-            <td><a href="">PotyCha</a></td>
-             <td><button class="btn btn-danger btn-xs"Supprimer</td>
+
+         <td><%= tFriends[i][j].name %></td>
+         <% if(tFriends[i][j].type=="request"){ %>
+          <td>Veuillez accepté la requête !</td>
+          <td colspan = "2"><button class="btn btn-danger btn-xs">Accepter</button><button class="btn btn-danger btn-xs">Refuser</button></td>
+          <% }else if (tFriends[i][j].type=="progress"){ %>
+          <td colspan = "3">En attente de validation</td>
+          <% }else{ %>
+           <td>
+                <form method = "POST" action ="/myPet">
+                    <input type="hidden" value ="<%= tMyPets[i].id %>" name = "idFriend">
+                    <input type="hidden" value ="<%= tFriends[i][j].id %>" name = "idMyPet">
+                    <input type ="submit" value="Visiter">
+                </form>
+           </td>
+           <td><button class="btn btn-danger btn-xs">Refuser</button></td>
+           <% } %>
+
         </tr>
+     <%
+        }
+       }
+     %>
         </tbody>
     </table>
+    <%
+        }
+        }
+    %>
     </div>
     </div>
+
+
 		
-        <div class="panel panel-success col-sm-12">
-    <div class="panel-heading"><h3>%Potychien%</h3>
-        <table class="table">
-        <thead>
-        <tr>
-            <th>Noms</th>
-            <th>Race</th>
-            <th>Page</a></th>
-            <th>Supprimer</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="success">
-            <td>John</td>
-            <td>Doe</td>
-            <td><a href="">ChienChérieu</a></td>
-             <td><button class="btn btn-danger btn-xs"Supprimer</td>
-        </tr>
-        <tr class="danger">
-            <td>Mary</td>
-            <td>Moe</td>
-            <td><a href="">ChienvaBien</a></td>
-             <td><button class="btn btn-danger btn-xs"Supprimer</td>
-        </tr>
-        <tr class="info">
-            <td>July</td>
-            <td>Dooley</td>
-            <td><a href="">PotyChien</a></td>
-             <td><button class="btn btn-danger btn-xs"Supprimer</td>
-        </tr>
-        </tbody>
-    </table>
-    </div>
+
 <br>
 
 </div>
